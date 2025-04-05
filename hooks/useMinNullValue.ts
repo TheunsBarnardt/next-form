@@ -1,21 +1,22 @@
-// src/hooks/useNullValue/useMinNullValue.ts
+// src/hooks/useMinNullValue.ts
 
-import { useMemo } from 'react';
-import isArray from 'lodash/isArray';
-import each from 'lodash/each'; // While imported, it's not directly used in this hook
+import { useState, useEffect } from 'react';
 
-interface MinNullValueProps {
-  min?: number;
-  default?: any; // Define more specific type if needed
-}
+type MinNullValueProps<T> = {
+  min?: T;
+  default?: T | T[];
+};
 
-const useMinNullValue = ({ min, default: defaultValue }: MinNullValueProps = {}) => {
-  const nullValue = useMemo(() => {
-    if (defaultValue !== undefined && isArray(defaultValue)) {
-      return defaultValue.map(() => min);
+const useMinNullValue = <T>({ min, default: default_ }: MinNullValueProps<T>) => {
+  const [nullValue, setNullValue] = useState<T | T[] | undefined>(min);
+
+  useEffect(() => {
+    if (default_ !== undefined && Array.isArray(default_)) {
+      setNullValue(default_.map(() => min));
+    } else {
+      setNullValue(min);
     }
-    return min;
-  }, [defaultValue, min]);
+  }, [min, default_]);
 
   return {
     nullValue,

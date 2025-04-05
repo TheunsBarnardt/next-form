@@ -1,11 +1,10 @@
-// src/hooks/useNullValue/useBaseNullValue.ts
+// src/hooks/useBaseNullValue.ts
 
-import { useMemo } from 'react';
+import { useState } from 'react';
 
 const useBaseNullValue = () => {
-  const nullValue = useMemo(() => {
-    return null;
-  }, []);
+
+  const [nullValue] = useState<any>(null);
 
   return {
     nullValue,

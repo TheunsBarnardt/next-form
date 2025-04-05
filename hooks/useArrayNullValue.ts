@@ -1,11 +1,9 @@
-// src/hooks/useNullValue/useArrayNullValue.ts
+// src/hooks/useArrayNullValue.ts
 
-import { useMemo } from 'react';
+import { useState } from 'react';
 
 const useArrayNullValue = () => {
-  const nullValue = useMemo(() => {
-    return [];
-  }, []);
+  const [nullValue] = useState<any[]>([]);
 
   return {
     nullValue,

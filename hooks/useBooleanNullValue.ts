@@ -1,14 +1,16 @@
-// src/hooks/useNullValue/useBooleanNullValue.ts
+// src/hooks/useBooleanNullValue.ts
 
-import { useMemo } from 'react';
+import { useState, useEffect } from 'react';
 
-interface BooleanNullValueProps {
-  falseValue?: any; // Define more specific type if needed
-}
+type BooleanNullValueProps = {
+  falseValue?: boolean;
+};
 
-const useBooleanNullValue = ({ falseValue }: BooleanNullValueProps = {}) => {
-  const nullValue = useMemo(() => {
-    return falseValue;
+const useBooleanNullValue = ({ falseValue }: BooleanNullValueProps) => {
+  const [nullValue, setNullValue] = useState<boolean | undefined>(falseValue);
+
+  useEffect(() => {
+    setNullValue(falseValue);
   }, [falseValue]);
 
   return {

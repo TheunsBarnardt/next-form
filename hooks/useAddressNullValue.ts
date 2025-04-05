@@ -1,25 +1,25 @@
-// src/hooks/useNullValue/useAddressNullValue.ts
+// src/hooks/useAddressNullValue.ts
 
-import { useMemo } from 'react';
+import { useState } from 'react';
 
-export interface AddressNullValue {
-  address: null;
-  address2: null;
-  zip: null;
-  city: null;
-  state: null;
-  country: null;
-}
+type AddressNullValue = {
+  address: null | string;
+  address2: null | string;
+  zip: null | string;
+  city: null | string;
+  state: null | string;
+  country: null | string;
+};
 
-const useAddressNullValue = (): { nullValue: AddressNullValue } => {
-  const nullValue = useMemo<AddressNullValue>(() => ({
+const useAddressNullValue = () => {
+  const [nullValue] = useState<AddressNullValue>({
     address: null,
     address2: null,
     zip: null,
     city: null,
     state: null,
     country: null,
-  }), []);
+  });
 
   return {
     nullValue,

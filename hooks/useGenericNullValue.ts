@@ -1,15 +1,13 @@
-// src/hooks/useNullValue/useGenericNullValue.ts
+// src/hooks/useGenericNullValue.ts
 
-import { useMemo } from 'react';
+import { useState } from 'react';
 
-interface GenericNullValueProps {
+type GenericNullValueProps = {
   nullValueProp?: any;
-}
+};
 
-const useGenericNullValue = ({ nullValueProp }: GenericNullValueProps = {}) => {
-  const nullValue = useMemo(() => {
-    return nullValueProp !== undefined ? nullValueProp : null;
-  }, [nullValueProp]);
+const useGenericNullValue = ({ nullValueProp }: GenericNullValueProps) => {
+  const [nullValue] = useState<any>(nullValueProp !== undefined ? nullValueProp : null);
 
   return {
     nullValue,

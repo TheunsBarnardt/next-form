@@ -1,25 +1,26 @@
-// src/hooks/useNullValue/useMultilingualNullValue.ts
+// src/hooks/useMultilingualNullValue.ts
 
-import { useMemo } from 'react';
-import each from 'lodash/each';
+import { useState, useEffect } from 'react';
 
-interface MultilingualNullValueDependencies {
-  languages: React.MutableRefObject<string[]>;
-}
+type MultilingualNullValueProps = {
+  languages: string[];
+};
 
-const useMultilingualNullValue = (dependencies: MultilingualNullValueDependencies) => {
-  const { languages } = dependencies;
+const useMultilingualNullValue = ({ languages: initialLanguages }: MultilingualNullValueProps) => {
+  const [nullValue, setNullValue] = useState<Record<string, null>>({});
+  const [languages, setLanguages] = useState<string[]>(initialLanguages);
 
-  const nullValue = useMemo(() => {
-    const value: Record<string, null> = {};
-    each(languages.current, (code) => {
-      value[code] = null;
+  useEffect(() => {
+    const newValue: Record<string, null> = {};
+    languages.forEach((code) => {
+      newValue[code] = null;
     });
-    return value;
+    setNullValue(newValue);
   }, [languages]);
 
   return {
     nullValue,
+    setLanguages, // If you need to dynamically update languages
   };
 };
 
